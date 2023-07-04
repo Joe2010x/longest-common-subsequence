@@ -7,7 +7,7 @@ namespace LongestSubsequence
 {
     internal class Program
     {
-        public static string LongestSubsequence (string[] inputStrArr) {
+        public static string OneSequence (string[] inputStrArr) {
             var result = "";
             var firstStr = inputStrArr[0];
             var restStrArr = inputStrArr.Skip(1).ToArray();
@@ -26,6 +26,26 @@ namespace LongestSubsequence
                     }
                     result += charX;
                 }
+            }
+            return result;
+
+        }
+
+        public static string LongestSubsequence(string[] inputStrArr)
+        {
+            var thisArr = new string[inputStrArr.Length];
+            inputStrArr.CopyTo(thisArr,0);
+            var result = "";
+            foreach (var item in inputStrArr)
+            {
+                var thisSequence = OneSequence(thisArr);
+                if (thisSequence.Length >= result.Length) result = thisSequence;
+                var newLast = thisArr[0];
+                for ( var i=0; i<thisArr.Length-1;i++)
+                { 
+                    thisArr[i] = thisArr[i+1];
+                }
+                thisArr[thisArr.Length-1] = newLast; 
             }
             return result;
         }
